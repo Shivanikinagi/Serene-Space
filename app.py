@@ -207,4 +207,6 @@ def stressdetect():
     return render_template('stress.html', prediction_text3='Stress Level is: {}'.format(data))
 
 if __name__=="__main__":
-    app.run(debug=True)
+    # Use the port Render provides, or default to 5000 locally
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
