@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import login_required,logout_user,login_user,login_manager,LoginManager,current_user
 
 
+import os
 import json
 import numpy as np
 import pickle
@@ -25,6 +26,7 @@ model = pickle.load(open('stresslevel.pkl', 'rb'))
 #creation of the Flask Application named as "app"
 # mydatabase connection
 local_server=True
+basedir = os.path.abspath(os.path.dirname(__file__))
 app=Flask(__name__)
 
 
@@ -34,7 +36,7 @@ app = Flask(__name__,
             template_folder='templates')
 
 
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///' + os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 db=SQLAlchemy(app)
